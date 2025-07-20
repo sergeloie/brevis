@@ -16,7 +16,7 @@ public class BrevisResource {
     private final boolean isRedirect;
 
     public BrevisResource(BrevisService brevisService,
-                          @Value("${brevis.redirect}")boolean isRedirect) {
+                          @Value("${brevis.redirect:false}")boolean isRedirect) {
         this.brevisService = brevisService;
         this.isRedirect = isRedirect;
     }

@@ -19,7 +19,7 @@ public class BrevisService {
     private final StringService stringService;
     private final BrevisPersistenceService brevisPersistenceService;
     private final String prefix;
-    private final int MAX_ATTEMPTS = 5;
+    private final int MAX_ATTEMPTS;
 
     public BrevisService(BrevisRepository brevisRepository,
                          BrevisMapper brevisMapper,
@@ -31,6 +31,7 @@ public class BrevisService {
         this.stringService = stringService;
         this.brevisPersistenceService = brevisPersistenceService;
         this.prefix = prefix;
+        this.MAX_ATTEMPTS = 5;
     }
 
     public BrevisDto getBrevisByShortURL(String shortURL) {
@@ -55,6 +56,6 @@ public class BrevisService {
                 attempts++;
             }
         }
-        throw new IllegalStateException("Не удалось сгенерировать уникальную короткую ссылку за %d попыток".formatted(MAX_ATTEMPTS));
+        throw new IllegalStateException("Failed to generate unique short link after %d attempts".formatted(MAX_ATTEMPTS));
     }
 }
