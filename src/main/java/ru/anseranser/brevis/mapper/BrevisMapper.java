@@ -1,6 +1,7 @@
 package ru.anseranser.brevis.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import ru.anseranser.brevis.dto.BrevisDto;
@@ -11,5 +12,7 @@ import ru.anseranser.brevis.model.Brevis;
         componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BrevisMapper {
     Brevis toEntity(BrevisCreateDTO brevisCreateDTO);
-    BrevisDto toBrevisDto(Brevis brevis);
+
+    @Mapping(target = "shortURL", expression = "java(prefix + brevis.getShortURL())")
+    BrevisDto toBrevisDto(Brevis brevis, String prefix);
 }

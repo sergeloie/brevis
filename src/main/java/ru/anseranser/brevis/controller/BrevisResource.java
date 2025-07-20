@@ -1,6 +1,6 @@
 package ru.anseranser.brevis.controller;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -10,23 +10,26 @@ import ru.anseranser.brevis.service.BrevisService;
 
 @RestController
 @RequestMapping("/brevis")
-@RequiredArgsConstructor
 public class BrevisResource {
 
     private final BrevisService brevisService;
+    private final boolean isRedirect;
+
+    public BrevisResource(BrevisService brevisService,
+                          @Value("${brevis.redirect}")boolean isRedirect) {
+        this.brevisService = brevisService;
+        this.isRedirect = isRedirect;
+    }
 
     @PostMapping
     public BrevisDto create(@Validated @RequestBody BrevisCreateDTO brevisCreateDTO) {
         return brevisService.create(brevisCreateDTO);
     }
 
-//    @GetMapping("/{shorturl}")
-//    public BrevisDto getOne(@PathVariable String shorturl) {
-//        return brevisService.getBrevisByShortURL(shorturl);
-//    }
-
     @GetMapping("/{shortUrl}")
-    public RedirectView redirect(@PathVariable String shortUrl) {
-        return new RedirectView(brevisService.getBrevisByShortURL(shortUrl).sourceURL());
+    public Object getShortUrl(@PathVariable String shortUrl) {
+        return isRedirect
+                ? new RedirectView(brevisService.getBrevisByShortURL(shortUrl).sourceURL())
+                : brevisService.getBrevisByShortURL(shortUrl);
     }
 }

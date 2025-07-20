@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import ru.anseranser.brevis.dto.BrevisCreateDTO;
 import ru.anseranser.brevis.dto.BrevisDto;
@@ -38,7 +37,7 @@ public class BrevisService {
         Brevis brevis = brevisRepository.findByShortURL(shortURL)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(shortURL)));
-        return brevisMapper.toBrevisDto(brevis);
+        return brevisMapper.toBrevisDto(brevis, prefix);
     }
 
     public BrevisDto create(BrevisCreateDTO brevisCreateDTO) {
@@ -51,8 +50,7 @@ public class BrevisService {
 
             try {
                 Brevis savedBrevis = brevisPersistenceService.save(brevis);
-                savedBrevis.setShortURL(prefix + shortUrl);
-                return brevisMapper.toBrevisDto(savedBrevis);
+                return brevisMapper.toBrevisDto(savedBrevis, prefix);
             } catch (DataIntegrityViolationException e) {
                 attempts++;
             }
