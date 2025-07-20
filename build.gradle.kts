@@ -1,52 +1,52 @@
 plugins {
-	java
-	id("org.springframework.boot") version "3.4.1"
-	id("io.spring.dependency-management") version "1.1.7"
+    java
+    alias(libs.plugins.springBoot)
+    alias(libs.plugins.springDependencyManagement)
 }
 
 group = "ru.anseranser"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation(libs.springBootStarter.web)
+    implementation(libs.springBootStarter.actuator)
+    implementation(libs.springBootStarter.validation)
+    implementation(libs.springBootStarter.dataJpa)
 
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly(libs.springBoot.devtools)
 
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly(libs.h2)
+    runtimeOnly(libs.postgresql)
 
-	compileOnly("org.projectlombok:lombok")
-	compileOnly("org.mapstruct:mapstruct:1.6.0")
+    compileOnly(libs.lombok)
+    compileOnly(libs.mapstruct)
 
-	annotationProcessor("org.projectlombok:lombok")
-	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.0")
-	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+    annotationProcessor(libs.lombok)
+    annotationProcessor(libs.mapstruct.annotationProcessor)
+    annotationProcessor(libs.lombok.mapstructBinding)
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.7")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.springBootStarter.test)
+    testImplementation(libs.javacrumbs)
+//    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

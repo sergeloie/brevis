@@ -1,0 +1,39 @@
+[versions]
+# spring-boot-starter-test версии 3.5.3 содержит в себе junit jupiter версии 5.12.2
+# и согласованный с ним по версии junit platform версии 1.12.2
+# вероятно, именно поэтому тесты работают с указанием в build.gradle.kts только стартера
+springboot-version = "3.5.3"
+h2-version = "2.3.232"
+postgresql-version = "42.7.7"
+lombok-version = "1.18.38"
+mapstruct-version = "1.6.3"
+lombok-mapstruct-version = "0.2.0"
+junit-plarform-version = "1.12.2"
+junit-version = "5.12.2"
+javacrumbs-version = "4.1.1"
+
+[libraries]
+springBoot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springboot-version" }
+springBootStarter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springboot-version" }
+springBootStarter-dataJpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springboot-version" }
+springBootStarter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "springboot-version" }
+springBootStarter-actuator = {module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springboot-version"}
+springBootStarter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springboot-version" }
+
+h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql-version" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version" }
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct-version" }
+mapstruct-annotationProcessor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct-version" }
+lombok-mapstructBinding = { module = "org.projectlombok:lombok-mapstruct-binding", version.ref = "lombok-mapstruct-version" }
+
+junit-platformLauncher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-plarform-version" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit-version" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-version" }
+javacrumbs = { module = "net.javacrumbs.json-unit:json-unit-assertj", version.ref = "javacrumbs-version" }
+
+
+[plugins]
+springBoot = { id = "org.springframework.boot", version.ref = "springboot-version" }
+springDependencyManagement = "io.spring.dependency-management:1.1.7"
