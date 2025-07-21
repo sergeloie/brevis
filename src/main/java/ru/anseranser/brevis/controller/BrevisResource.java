@@ -1,12 +1,16 @@
 package ru.anseranser.brevis.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.anseranser.brevis.dto.BrevisCreateDTO;
 import ru.anseranser.brevis.dto.BrevisDto;
 import ru.anseranser.brevis.service.BrevisService;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/brevis")
@@ -16,20 +20,34 @@ public class BrevisResource {
     private final boolean isRedirect;
 
     public BrevisResource(BrevisService brevisService,
-                          @Value("${brevis.redirect:false}")boolean isRedirect) {
+                          @Value("${brevis.redirect:false}") boolean isRedirect) {
         this.brevisService = brevisService;
         this.isRedirect = isRedirect;
     }
 
     @PostMapping
-    public BrevisDto create(@Validated @RequestBody BrevisCreateDTO brevisCreateDTO) {
-        return brevisService.create(brevisCreateDTO);
+    public ResponseEntity<BrevisDto> create(@Validated @RequestBody BrevisCreateDTO brevisCreateDTO) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(brevisService.create(brevisCreateDTO));
     }
 
-    @GetMapping("/{shortUrl}")
+/*    @GetMapping("/{shortUrl}")
     public Object getShortUrl(@PathVariable String shortUrl) {
         return isRedirect
                 ? new RedirectView(brevisService.getBrevisByShortURL(shortUrl).sourceURL())
                 : brevisService.getBrevisByShortURL(shortUrl);
+    }*/
+
+    @GetMapping("/{shortUrl}")
+    public ResponseEntity<?> getShortUrl(@PathVariable String shortUrl) {
+        BrevisDto brevisDto = brevisService.getBrevisByShortURL(shortUrl);
+        return isRedirect
+                ?
+                ResponseEntity.status(HttpStatus.FOUND)
+                        .location(URI.create(brevisDto.sourceURL()))
+                        .build()
+                :
+                ResponseEntity.status(HttpStatus.OK)
+                        .body(brevisDto);
     }
 }
