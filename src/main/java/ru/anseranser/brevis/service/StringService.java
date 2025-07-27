@@ -3,6 +3,7 @@ package ru.anseranser.brevis.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 @Service
@@ -10,13 +11,13 @@ public class StringService {
 
     private final int shortUrlLength;
     private final String alphabet;
-    private final Random random;
+    private final SecureRandom random;
 
     public StringService(@Value("${brevis.length}") int shortUrlLength,
                          @Value("${brevis.alphabet}") String alphabet) {
         this.shortUrlLength = shortUrlLength;
         this.alphabet = alphabet;
-        random = new Random();
+        random = new SecureRandom();
     }
 
     /**
