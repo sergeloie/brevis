@@ -1,5 +1,6 @@
 plugins {
     java
+    checkstyle
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
 }
@@ -13,14 +14,17 @@ java {
     }
 }
 
+checkstyle {
+    toolVersion = "10.26.1"
+    configFile = file("${rootDir}/checkstyle/sun_checks_hexlet_edition.xml")
+    isIgnoreFailures = true
+    isShowViolations = true
+}
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {

@@ -7,7 +7,8 @@ import org.hibernate.validator.constraints.URL;
 
 
 /**
- * DTO for {@link ru.anseranser.brevis.model.Brevis}
+ * DTO for {@link ru.anseranser.brevis.model.Brevis}.
+ * @param sourceURL the source URL string, must be a valid URL with max length 255 characters
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record BrevisCreateDTO(
