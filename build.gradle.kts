@@ -1,12 +1,17 @@
 plugins {
-    java
+    application
     checkstyle
+    jacoco
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
 }
 
 group = "ru.anseranser"
 version = "0.0.1-SNAPSHOT"
+
+application {
+    mainClass = "ru.anseranser.brevis.BrevisApplication"
+}
 
 java {
     toolchain {
@@ -53,4 +58,11 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
 }
