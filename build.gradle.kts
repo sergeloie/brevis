@@ -4,6 +4,7 @@ plugins {
     jacoco
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
+    alias(libs.plugins.sonarCube)
 }
 
 group = "ru.anseranser"
@@ -64,5 +65,13 @@ tasks.jacocoTestReport {
     reports {
         xml.required = true
         html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "sergeloie_brevis")
+        property("sonar.organization", "sergeloie")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
