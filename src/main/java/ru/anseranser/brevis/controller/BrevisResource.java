@@ -35,13 +35,6 @@ public class BrevisResource {
                 .body(brevisService.create(brevisCreateDTO));
     }
 
-/*    @GetMapping("/{shortUrl}")
-    public Object getShortUrl(@PathVariable String shortUrl) {
-        return isRedirect
-                ? new RedirectView(brevisService.getBrevisByShortURL(shortUrl).sourceURL())
-                : brevisService.getBrevisByShortURL(shortUrl);
-    }*/
-
     @GetMapping("/{shortUrl}")
     public ResponseEntity<?> getShortUrl(@PathVariable String shortUrl) {
         BrevisDto brevisDto = brevisService.getBrevisByShortURL(shortUrl);

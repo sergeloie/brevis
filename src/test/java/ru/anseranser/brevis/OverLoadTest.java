@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @TestPropertySource(properties = "brevis.length=1")
-public class OverLoadTest {
+class OverLoadTest {
 
     @Autowired
     private BrevisRepository brevisRepository;

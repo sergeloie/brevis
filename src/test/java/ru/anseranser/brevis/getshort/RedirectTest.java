@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestPropertySource(properties = "brevis.redirect=true")
 @AutoConfigureMockMvc
-public class RedirectTest {
+class RedirectTest {
 
     @Autowired
     private MockMvc mockMvc;

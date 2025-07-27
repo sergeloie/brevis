@@ -1,14 +1,14 @@
 rootProject.name = "brevis"
 pluginManagement {
     repositories {
-        google()
         mavenCentral()
         gradlePluginPortal()
+        google()
     }
 }
 dependencyResolutionManagement {
     repositories {
-        google()
         mavenCentral()
+        google()
     }
 }
