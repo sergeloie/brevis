@@ -35,3 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/gradle/verification-keyring.keys
+/gradle/verification-keyring.gpg
