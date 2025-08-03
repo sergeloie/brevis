@@ -2,7 +2,6 @@ package ru.anseranser.brevis.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -19,7 +18,6 @@ import java.util.Set;
 @Service
 public class RedisService {
     private final StringRedisTemplate stringRedisTemplate;
-    private final RedisTemplate<String, String> redisTemplate;
 
     private static final String URL_KEY_PREFIX = "url:";
     private static final String HITS_KEY_PREFIX = "hits:";
@@ -28,7 +26,7 @@ public class RedisService {
     private static final Duration TTL = Duration.ofDays(30);
 
 
-    /**
+    /*
      * Сохраняем ссылку в Redis с TTL
      */
     public void cacheUrl(String shortUrl, String sourceUrl) {
@@ -36,7 +34,7 @@ public class RedisService {
                 .set(URL_KEY_PREFIX + shortUrl, sourceUrl, TTL);
     }
 
-    /**
+    /*
      * Получаем ссылку по короткому коду
      */
     public String getUrl(String shortUrl) {
@@ -44,7 +42,7 @@ public class RedisService {
                 .get(URL_KEY_PREFIX + shortUrl);
     }
 
-    /**
+    /*
      * Инкрементируем счётчик переходов
      * и обновляем сортированное множество топ ссылок
      */
@@ -55,7 +53,7 @@ public class RedisService {
                 .add(TOP_KEY, shortUrl, hits != null ? hits.doubleValue() : 1.0);
     }
 
-    /**
+    /*
      * Получаем количество переходов по ссылке
      */
     public Long getHits(String shortUrl) {
@@ -64,7 +62,7 @@ public class RedisService {
         return hitString != null ? Long.parseLong(hitString) : 0;
     }
 
-    /**
+    /*
      * Получаем топ N ссылок по количеству переходов
      */
     public List<BrevisStatsDTO> getTopLinks(int limit) {
@@ -86,7 +84,7 @@ public class RedisService {
         }
 
         // 2. Получаем пачкой исходные ссылки
-        List<Object> results = redisTemplate.executePipelined(
+        List<Object> results = stringRedisTemplate.executePipelined(
                 new SessionCallback<List<String>>() {
                     @Override
                     public List<String> execute(RedisOperations operations) {

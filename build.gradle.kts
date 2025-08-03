@@ -22,7 +22,7 @@ java {
 
 checkstyle {
     toolVersion = "10.26.1"
-    configFile = file("${rootDir}/checkstyle/sun_checks_hexlet_edition.xml")
+    configFile = file("checkstyle/sun_checks_hexlet_edition.xml")
     isIgnoreFailures = true
     isShowViolations = true
 }
@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.springBootStarter.actuator)
     implementation(libs.springBootStarter.validation)
     implementation(libs.springBootStarter.dataJpa)
+    implementation(libs.springBootStarter.redis)
 
     developmentOnly(libs.springBoot.devtools)
 
