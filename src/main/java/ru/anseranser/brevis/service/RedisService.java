@@ -65,7 +65,7 @@ public class RedisService {
     /*
      * Получаем топ N ссылок по количеству переходов
      */
-    public List<BrevisStatsDTO> getTopLinks(int limit) {
+    public List<BrevisStatsDTO> getTopLinks(long limit) {
         // 1. Получаем топ N ссылок с их счетчиками
         Set<ZSetOperations.TypedTuple<String>> topVisitedShortURLs =
                 stringRedisTemplate.opsForZSet()
