@@ -18,6 +18,7 @@ springBootStarter-web = { module = "org.springframework.boot:spring-boot-starter
 springBootStarter-dataJpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springboot-version" }
 springBootStarter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "springboot-version" }
 springBootStarter-actuator = {module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springboot-version"}
+springBootStarter-redis = {module = "org.springframework.boot:spring-boot-starter-data-redis", version.ref = "springboot-version"}
 springBootStarter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springboot-version" }
 
 h2 = { module = "com.h2database:h2", version.ref = "h2-version" }

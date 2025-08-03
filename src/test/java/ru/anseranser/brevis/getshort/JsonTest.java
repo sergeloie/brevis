@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.anseranser.brevis.dto.BrevisCreateDTO;
-import ru.anseranser.brevis.dto.BrevisDto;
+import ru.anseranser.brevis.dto.BrevisDTO;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,7 +41,7 @@ public class JsonTest {
                         .content(objectMapper.writeValueAsString(brevisCreateDTO)))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn().getResponse().getContentAsString();
-        BrevisDto brevisDto = objectMapper.readValue(result, BrevisDto.class);
+        BrevisDTO brevisDto = objectMapper.readValue(result, BrevisDTO.class);
 
         String response = mockMvc.perform(get(brevisDto.shortURL()))
                 .andExpect(status().is2xxSuccessful())

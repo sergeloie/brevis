@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.anseranser.brevis.dto.BrevisCreateDTO;
-import ru.anseranser.brevis.dto.BrevisDto;
+import ru.anseranser.brevis.dto.BrevisDTO;
 import ru.anseranser.brevis.mapper.BrevisMapper;
 import ru.anseranser.brevis.model.Brevis;
 import ru.anseranser.brevis.repository.BrevisRepository;
@@ -34,14 +34,14 @@ public class BrevisService {
         this.MAX_ATTEMPTS = 5;
     }
 
-    public BrevisDto getBrevisByShortURL(String shortURL) {
+    public BrevisDTO getBrevisByShortURL(String shortURL) {
         Brevis brevis = brevisRepository.findByShortURL(shortURL)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(shortURL)));
         return brevisMapper.toBrevisDto(brevis, prefix);
     }
 
-    public BrevisDto create(BrevisCreateDTO brevisCreateDTO) {
+    public BrevisDTO create(BrevisCreateDTO brevisCreateDTO) {
         Brevis brevis = brevisMapper.toEntity(brevisCreateDTO);
         int attempts = 0;
 

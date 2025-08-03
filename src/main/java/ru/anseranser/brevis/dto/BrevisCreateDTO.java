@@ -7,7 +7,8 @@ import org.hibernate.validator.constraints.URL;
 
 
 /**
- * DTO for {@link ru.anseranser.brevis.model.Brevis}
+ * DTO for {@link ru.anseranser.brevis.model.Brevis}.
+ * @param sourceURL - Source URL for shortening.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record BrevisCreateDTO(

@@ -1,5 +1,6 @@
 plugins {
     java
+    checkstyle
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
 }
@@ -28,6 +29,7 @@ dependencies {
     implementation(libs.springBootStarter.actuator)
     implementation(libs.springBootStarter.validation)
     implementation(libs.springBootStarter.dataJpa)
+    implementation(libs.springBootStarter.redis)
 
     developmentOnly(libs.springBoot.devtools)
 
@@ -42,8 +44,15 @@ dependencies {
     annotationProcessor(libs.lombok.mapstructBinding)
 
     testImplementation(libs.springBootStarter.test)
+    testImplementation(platform(libs.junit.bom))
+    testRuntimeOnly(libs.junit.platformLauncher)
     testImplementation(libs.javacrumbs)
 //    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+checkstyle {
+    toolVersion = "10.26.1"
+    configFile = file("$projectDir/checkstyle/hexlet-checks.xml")
 }
 
 

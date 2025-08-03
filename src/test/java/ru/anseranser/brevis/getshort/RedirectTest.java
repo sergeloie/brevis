@@ -9,10 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.anseranser.brevis.dto.BrevisCreateDTO;
-import ru.anseranser.brevis.dto.BrevisDto;
+import ru.anseranser.brevis.dto.BrevisDTO;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,7 +37,7 @@ public class RedirectTest {
                         .content(objectMapper.writeValueAsString(brevisCreateDTO)))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn().getResponse().getContentAsString();
-        BrevisDto brevisDto = objectMapper.readValue(result, BrevisDto.class);
+        BrevisDTO brevisDto = objectMapper.readValue(result, BrevisDTO.class);
 
         mockMvc.perform(get(brevisDto.shortURL()))
                 .andExpect(status().is3xxRedirection())
