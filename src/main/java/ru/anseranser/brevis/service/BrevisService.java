@@ -19,7 +19,7 @@ public class BrevisService {
     private final StringService stringService;
     private final BrevisPersistenceService brevisPersistenceService;
     private final String prefix;
-    private final int MAX_ATTEMPTS;
+    private final int maxAttempts;
 
     public BrevisService(BrevisRepository brevisRepository,
                          BrevisMapper brevisMapper,
@@ -31,13 +31,12 @@ public class BrevisService {
         this.stringService = stringService;
         this.brevisPersistenceService = brevisPersistenceService;
         this.prefix = prefix;
-        this.MAX_ATTEMPTS = 5;
+        this.maxAttempts = 5;
     }
 
     public BrevisDTO getBrevisByShortURL(String shortURL) {
         Brevis brevis = brevisRepository.findByShortURL(shortURL)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(shortURL)));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(shortURL)));
         return brevisMapper.toBrevisDto(brevis, prefix);
     }
 
@@ -45,7 +44,7 @@ public class BrevisService {
         Brevis brevis = brevisMapper.toEntity(brevisCreateDTO);
         int attempts = 0;
 
-        while (attempts < MAX_ATTEMPTS) {
+        while (attempts < maxAttempts) {
             String shortUrl = stringService.generateShortURL();
             brevis.setShortURL(shortUrl);
 
@@ -56,6 +55,6 @@ public class BrevisService {
                 attempts++;
             }
         }
-        throw new IllegalStateException("Failed to generate unique short link after %d attempts".formatted(MAX_ATTEMPTS));
+        throw new IllegalStateException("Failed to generate unique short link after %d attempts".formatted(maxAttempts));
     }
 }

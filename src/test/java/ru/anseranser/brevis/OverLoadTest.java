@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @TestPropertySource(properties = "brevis.length=1")
-public class OverLoadTest {
+class OverLoadTest {
 
     @Autowired
     private BrevisRepository brevisRepository;
@@ -28,10 +28,10 @@ public class OverLoadTest {
     @Test
     void overTest01() {
         for (int i = 0; i < alphabet.length(); i++) {
-                Brevis brevis = new Brevis();
-                brevis.setShortURL(String.valueOf(alphabet.charAt(i)));
-                brevis.setSourceURL("https://example.com");
-                brevisRepository.save(brevis);
+            Brevis brevis = new Brevis();
+            brevis.setShortURL(String.valueOf(alphabet.charAt(i)));
+            brevis.setSourceURL("https://example.com");
+            brevisRepository.save(brevis);
         }
         BrevisCreateDTO dto = new BrevisCreateDTO("https://example.com/overload");
         assertThrows(IllegalStateException.class, () -> brevisService.create(dto));

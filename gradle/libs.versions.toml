@@ -11,6 +11,8 @@ lombok-mapstruct-version = "0.2.0"
 junit-plarform-version = "1.12.2"
 junit-version = "5.12.2"
 javacrumbs-version = "4.1.1"
+spring-dependency-plugin-version = "1.1.7"
+sonarcube-plugin-version = "6.2.0.5505"
 
 [libraries]
 springBoot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springboot-version" }
@@ -37,4 +39,5 @@ javacrumbs = { module = "net.javacrumbs.json-unit:json-unit-assertj", version.re
 
 [plugins]
 springBoot = { id = "org.springframework.boot", version.ref = "springboot-version" }
-springDependencyManagement = "io.spring.dependency-management:1.1.7"
+springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "spring-dependency-plugin-version"}
+sonarCube = { id = "org.sonarqube", version.ref = "sonarcube-plugin-version"}

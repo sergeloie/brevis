@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestPropertySource(properties = "brevis.redirect=false")
 @AutoConfigureMockMvc
-public class JsonTest {
+class JsonTest {
 
     @Value("${brevis.prefix}")
     private String prefixUrl;
