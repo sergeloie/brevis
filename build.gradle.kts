@@ -54,6 +54,7 @@ dependencies {
 
     testImplementation(libs.springBootStarter.test)
     testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.springBootStarter.testcontainers)
     testImplementation(libs.javacrumbs)
     testRuntimeOnly(libs.junit.platformLauncher)
 //    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
