@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface BrevisRepository extends JpaRepository<Brevis, Long> {
     Optional<Brevis> findByShortURL(String shortURL);
-
 }

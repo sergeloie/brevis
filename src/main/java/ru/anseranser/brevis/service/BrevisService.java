@@ -1,5 +1,6 @@
 package ru.anseranser.brevis.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,8 @@ public class BrevisService {
             brevis.setShortURL(shortUrl);
 
             try {
-                Brevis savedBrevis = brevisPersistenceService.save(brevis);
+//                Brevis savedBrevis = brevisPersistenceService.save(brevis);
+                Brevis savedBrevis = brevisRepository.save(brevis);
                 return brevisMapper.toBrevisDto(savedBrevis, prefix);
             } catch (DataIntegrityViolationException e) {
                 attempts++;
