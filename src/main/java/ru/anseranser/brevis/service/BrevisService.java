@@ -18,26 +18,40 @@ public class BrevisService {
     private final BrevisRepository brevisRepository;
     private final BrevisMapper brevisMapper;
     private final StringService stringService;
+    private final RedisService redisService;
     private final BrevisPersistenceService brevisPersistenceService;
     private final String prefix;
     private final int maxAttempts;
 
     public BrevisService(BrevisRepository brevisRepository,
                          BrevisMapper brevisMapper,
-                         StringService stringService,
+                         StringService stringService, RedisService redisService,
                          BrevisPersistenceService brevisPersistenceService,
                          @Value("${brevis.prefix}") String prefix) {
         this.brevisRepository = brevisRepository;
         this.brevisMapper = brevisMapper;
         this.stringService = stringService;
+        this.redisService = redisService;
         this.brevisPersistenceService = brevisPersistenceService;
         this.prefix = prefix;
         this.maxAttempts = 5;
     }
 
     public BrevisDTO getBrevisByShortURL(String shortURL) {
-        Brevis brevis = brevisRepository.findByShortURL(shortURL)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(shortURL)));
+
+        String sourceUrl = redisService.getUrl(shortURL);
+        Brevis brevis;
+        if (sourceUrl != null) {
+            brevis = new Brevis();
+            brevis.setShortURL(shortURL);
+            brevis.setSourceURL(sourceUrl);
+
+        } else {
+            brevis = brevisRepository.findByShortURL(shortURL)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(shortURL)));
+            redisService.cacheUrl(shortURL, brevis.getSourceURL());
+        }
+        redisService.incrementHits(shortURL);
         return brevisMapper.toBrevisDto(brevis, prefix);
     }
 

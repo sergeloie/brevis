@@ -1,5 +1,6 @@
 package ru.anseranser.brevis.service;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
