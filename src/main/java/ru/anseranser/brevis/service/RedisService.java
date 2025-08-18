@@ -1,7 +1,7 @@
 package ru.anseranser.brevis.service;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -17,6 +17,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
+@ConditionalOnBooleanProperty(name = "redis.enabled")
 public class RedisService {
     private final StringRedisTemplate stringRedisTemplate;
 
