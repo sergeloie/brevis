@@ -56,7 +56,11 @@ dependencies {
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.springBootStarter.testcontainers)
     testImplementation(libs.javacrumbs)
+    testImplementation(libs.testcontainers.junit)
     testRuntimeOnly(libs.junit.platformLauncher)
+
+    testImplementation("com.redis:testcontainers-redis:2.2.4")
+
 //    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
